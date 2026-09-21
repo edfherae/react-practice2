@@ -42,13 +42,13 @@ export function Characters() {
   });
 
   return (
-    <div>
+    <>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Ошибка запроса</p>}
       {data &&
         data.map((character) => (
           <CharacterCard character={character} key={character.id} />
         ))}
-    </div>
+    </>
   );
 }
