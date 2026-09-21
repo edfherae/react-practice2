@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL as API } from "../../../shared/api";
-import type { AllCharactersResponse } from "../../../entities/character/api/types";
+import type { AllCharactersResponse } from "../../../entities/character/";
 import styles from "./Characters.module.scss";
 import type { Character } from "../../../entities/character";
 import { useState } from "react";
