@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import logo from "../assets/Rick_and_Morty.svg";
+import logo from "../logo/Rick_and_Morty.svg";
 import styles from "./Layout.module.scss";
 
 export default function Layout() {

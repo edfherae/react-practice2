@@ -1,0 +1,12 @@
+@use "../../../shared/ui/variables" as v;
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.header {
+  width: 100%;
+  background-color: v.$primary-blue;
+  color: white;
+}

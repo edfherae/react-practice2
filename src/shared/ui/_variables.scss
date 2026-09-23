@@ -1,3 +1,16 @@
-$primary-blue: rgb(57, 145, 149);
-$primary-orange: rgb(223, 109, 38);
 $font: "Courier New", Courier, monospace;
+
+$blue-100: #85c7ca;
+$blue-200: #6cc6ca;
+$blue-300: #399195;
+$blue-400: #3c6d70;
+$blue-500: #135d61;
+
+$orange-100: #fbcda5;
+$orange-200: #fbbc86;
+$orange-300: #f7a45d;
+$orange-400: #b98b63;
+$orange-500: #a05a1e;
+
+$primary-blue: $blue-300;
+$primary-orange: $orange-300;

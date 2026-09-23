@@ -1,23 +1,9 @@
 @use "../../../shared/ui/variables" as v;
 
-.character-card {
-  border: 8px v.$primary-blue;
-  border-style: double;
-  border-radius: 15px;
-  width: 200px;
-  height: fit-content;
-  overflow: hidden;
-
-  &-title {
-    background-color: v.$primary-blue;
-    color: white;
-    font-family: v.$font;
-    font-size: 25px;
-    text-align: center;
-    word-wrap: break-word;
-  }
-  &-image {
-    display: block;
-    width: 100%;
-  }
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1;
 }
