@@ -4,7 +4,7 @@ import { API_URL as API } from "../../../shared/api";
 import type { AllCharactersResponse } from "../../../entities/character/";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Characters.module.scss";
-import { CharacterCard } from "../../../widgets/character";
+import { CharacterCard, Pagination } from "../../../widgets/character";
 import { useEffect } from "react";
 
 export function Characters() {
@@ -39,22 +39,22 @@ export function Characters() {
       <section className={styles["content"]}>
         {isLoading && <p>Loading...</p>}
         {isError && <p>Ошибка запроса</p>}
-        {data &&
-          data.results.map((character) => (
-            <CharacterCard
-              character={character}
-              key={character.id}
-              onClick={() => handleClick(character.id)}
+        {data && (
+          <>
+            {data.results.map((character) => (
+              <CharacterCard
+                character={character}
+                key={character.id}
+                onClick={() => handleClick(character.id)}
+              />
+            ))}
+            <Pagination
+              to="/characters/page/"
+              page={pageNumber}
+              pages={data?.info.pages}
             />
-          ))}
-      </section>
-      <section>
-        <button onClick={() => navigate(`/characters/page/${pageNumber - 1}`)}>
-          Prev
-        </button>
-        <button onClick={() => navigate(`/characters/page/${pageNumber + 1}`)}>
-          Next
-        </button>
+          </>
+        )}
       </section>
     </>
   );
