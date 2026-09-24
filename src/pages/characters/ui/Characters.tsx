@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL as API } from "../../../shared/api";
 import type { AllCharactersResponse } from "../../../entities/character/";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Characters.module.scss";
 import { CharacterCard, Pagination } from "../../../widgets/character";
 import { useEffect } from "react";
@@ -36,6 +36,9 @@ export function Characters() {
 
   return (
     <>
+      <Link to={"/characters/favourites"}>
+        <span>favourites</span>
+      </Link>
       <section className={styles["content"]}>
         {isLoading && <p>Loading...</p>}
         {isError && <p>Ошибка запроса</p>}
