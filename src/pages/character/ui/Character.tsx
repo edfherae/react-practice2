@@ -8,7 +8,6 @@ import { Img } from "../../../widgets/character";
 
 export function Character() {
   const { id } = useParams();
-  console.log(id);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["character", id],
