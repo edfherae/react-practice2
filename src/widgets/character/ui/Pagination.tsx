@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { buttonStyles } from "../../../shared/ui/Button";
 
 export function Pagination({
   to,
@@ -16,12 +17,14 @@ export function Pagination({
       <button
         disabled={page <= 1}
         onClick={() => navigate(`${to}/${page - 1}`)}
+        className={buttonStyles["button"]}
       >
         Prev
       </button>
       <button
         disabled={page >= pages}
         onClick={() => navigate(`${to}/${page + 1}`)}
+        className={buttonStyles["button"]}
       >
         Next
       </button>

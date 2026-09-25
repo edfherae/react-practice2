@@ -2,12 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL as API } from "../../../shared/api";
 import type { Character } from "../../../entities/character";
-import { useParams } from "react-router-dom";
-import styles from "./Character.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
 import { Img } from "../../../widgets/character";
+
+import styles from "./Character.module.scss";
+import { buttonStyles } from "../../../shared/ui/Button";
 
 export function Character() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["character", id],
@@ -18,26 +21,31 @@ export function Character() {
   });
 
   return (
-    data && (
-      <div className={styles["content"]}>
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>Ошибка запроса</p>}
-        {data && (
-          <>
-            <section>
-              <header className={styles["header"]}>{data.name}</header>
-              <Img character={data} />
-            </section>
+    <>
+      <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
+        Back
+      </button>
+      {data && (
+        <div className={styles["content"]}>
+          {isLoading && <p>Loading...</p>}
+          {isError && <p>Ошибка запроса</p>}
+          {data && (
+            <>
+              <section>
+                <header className={styles["header"]}>{data.name}</header>
+                <Img character={data} />
+              </section>
 
-            <section>
-              <p>{data?.species}</p>
-              <p>{data?.gender}</p>
-              <p>{data?.status}</p>
-              <p>{data?.location.name}</p>
-            </section>
-          </>
-        )}
-      </div>
-    )
+              <section>
+                <p>{data?.species}</p>
+                <p>{data?.gender}</p>
+                <p>{data?.status}</p>
+                <p>{data?.location.name}</p>
+              </section>
+            </>
+          )}
+        </div>
+      )}
+    </>
   );
 }

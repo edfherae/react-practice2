@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Characters.module.scss";
 import { CharacterCard, Pagination } from "../../../widgets/character";
 import { useEffect } from "react";
+import { buttonStyles } from "../../../shared/ui/Button";
 
 export function Characters() {
   // Page не будет undefined, т.к. этот компонент существует только на роуте "characters/page/:page"
@@ -36,8 +37,8 @@ export function Characters() {
 
   return (
     <>
-      <Link to={"/characters/favourites"}>
-        <span>favourites</span>
+      <Link to={"/characters/favourites"} className={buttonStyles["button"]}>
+        To favourites
       </Link>
       <section className={styles["content"]}>
         {isLoading && <p>Loading...</p>}

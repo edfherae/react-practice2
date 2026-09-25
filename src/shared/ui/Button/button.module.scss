@@ -1,0 +1,23 @@
+@use "../variables" as v;
+
+.button {
+  color: white;
+  text-decoration: none;
+  background-color: v.$orange-300;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.8;
+  margin: 5px;
+
+  &:not(:disabled):hover {
+    opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
