@@ -1,65 +1,112 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { API_URL as API } from "../../../shared/api";
-import type { AllCharactersResponse } from "../../../entities/character/";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import styles from "./Characters.module.scss";
-import { CharacterCard, Pagination } from "../../../widgets/character";
-import { useEffect } from "react";
+import { useEffect, useId, useState, type ChangeEvent } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
+import { API_URL } from "../../../shared/api";
 import { buttonStyles } from "../../../shared/ui/Button";
+import type { AllCharactersResponse } from "../../../entities/character";
+import { CharacterCard } from "../../../widgets/character";
+
+import styles from "./Characters.module.scss";
 
 export function Characters() {
-  // Page не будет undefined, т.к. этот компонент существует только на роуте "characters/page/:page"
-  const { page } = useParams() as { page: string };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get("name") ?? "";
+  const page = Number(searchParams.get("page")) || 1;
+  const [search, setSearch] = useState(name);
+  const [prevName, setPrevName] = useState(name);
+  const query = `?page=${page}${name ? `&name=${name}` : ""}`;
   const navigate = useNavigate();
-  const pageNumber = Number(page);
-  const isValidPage = !(isNaN(pageNumber) || pageNumber < 1);
+  const inputId = useId();
+  const DEBOUNCE_TIMEOUT = 300;
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["characters", pageNumber],
-    queryFn: () =>
-      axios.get<AllCharactersResponse>(`${API}/character?page=${page}`),
-    select(data) {
-      return data.data;
-    },
-    enabled: isValidPage,
-  });
-
-  function handleClick(id: number) {
-    navigate(`/character/${id}`);
+  // Синхронизация состояния на случай, если параметры были изменены извне
+  if (name !== prevName) {
+    setPrevName(name);
+    setSearch(name);
   }
 
-  useEffect(() => {
-    if (!isValidPage) navigate("/characters/page/1", { replace: true });
-  }, [isValidPage, navigate]);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["characters", name, page],
+    queryFn: () =>
+      axios.get<AllCharactersResponse>(`${API_URL}/character/${query}`),
+  });
 
-  if (!isValidPage) return null;
+  useEffect(() => {
+    if (search === name) return; // При навигации на другую страницу меняется setSearchParams, если фильтр пуст, кидает обратно на страницу 1 => если фильтр не менялся, эффект не запускаем
+    const t = setTimeout(() => {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        if (search)
+          next.set("name", search); // Если изменилось значение фильтра, сброс до страницы 1, изменение параметра имени
+        else next.delete("name"); // Если очистили поле фильтрации, сброс до страницы 1 и удаление имени из параметров
+        next.set("page", "1");
+        return next;
+      });
+    }, DEBOUNCE_TIMEOUT);
+
+    return () => clearTimeout(t);
+  }, [search, name, setSearchParams]);
 
   return (
     <>
       <Link to={"/characters/favourites"} className={buttonStyles["button"]}>
         To favourites
       </Link>
-      <section className={styles["content"]}>
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>Ошибка запроса</p>}
-        {data && (
-          <>
-            {data.results.map((character) => (
+      <label htmlFor={inputId}>Filter by name</label>
+      <input
+        id={inputId}
+        value={search}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setSearch(e.target.value);
+        }}
+      />
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Ошибка запроса</p>}
+      {data && (
+        <>
+          <section className={styles["content"]}>
+            {data.data.results.map((c) => (
               <CharacterCard
-                character={character}
-                key={character.id}
-                onClick={() => handleClick(character.id)}
+                character={c}
+                onClick={() => navigate(`/character/${c.id}`)}
+                key={c.id}
               />
             ))}
-            <Pagination
-              to="/characters/page/"
-              page={pageNumber}
-              pages={data?.info.pages}
-            />
-          </>
-        )}
-      </section>
+          </section>
+          <section>
+            <button
+              className={buttonStyles["button"]}
+              onClick={() =>
+                setSearchParams((prev) => {
+                  const next = new URLSearchParams(prev);
+                  next.set("page", `${page - 1}`);
+                  if (name) next.set("name", name);
+                  return next;
+                })
+              }
+              disabled={page <= 1}
+            >
+              Prev
+            </button>
+            <button
+              className={buttonStyles["button"]}
+              onClick={() =>
+                setSearchParams((prev) => {
+                  const next = new URLSearchParams(prev);
+                  next.set("page", `${page + 1}`);
+                  if (name) next.set("name", name);
+                  return next;
+                })
+              }
+              disabled={page >= data.data.info.pages}
+            >
+              Next
+            </button>
+          </section>
+        </>
+      )}
     </>
   );
 }
