@@ -1,29 +1,26 @@
-import { useNavigate } from "react-router-dom";
 import { buttonStyles } from "../../../shared/ui/Button";
 
 export function Pagination({
-  to,
   page,
-  pages,
+  totalPages,
+  onClick,
 }: {
-  to: string;
+  onClick: (pageNumber: number) => void;
   page: number;
-  pages: number;
+  totalPages: number;
 }) {
-  const navigate = useNavigate();
-
   return (
     <section>
       <button
         disabled={page <= 1}
-        onClick={() => navigate(`${to}/${page - 1}`)}
+        onClick={() => onClick(page - 1)}
         className={buttonStyles["button"]}
       >
         Prev
       </button>
       <button
-        disabled={page >= pages}
-        onClick={() => navigate(`${to}/${page + 1}`)}
+        disabled={page >= totalPages}
+        onClick={() => onClick(page + 1)}
         className={buttonStyles["button"]}
       >
         Next
