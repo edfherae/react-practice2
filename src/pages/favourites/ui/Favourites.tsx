@@ -1,17 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import type { Character } from "../../../entities/character";
-import { API_URL as URL } from "../../../shared/api";
 import { useNavigate } from "react-router-dom";
-import { CharacterCard } from "../../../widgets/character";
-import styles from "./Favourites.module.scss";
+
+import { StatusBar } from "../../../shared/ui/StatusBar/";
 import { buttonStyles } from "../../../shared/ui/Button";
+import { API_URL as URL } from "../../../shared/api";
+
+import type { Character } from "../../../entities/character";
+
+import { CharacterCard } from "../../../widgets/character";
+
+import styles from "./Favourites.module.scss";
 
 export function Favourites() {
   const navigate = useNavigate();
   const favouritesIds = useSelector((state) => state.favourites.ids);
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["favourite", favouritesIds],
     queryFn: () =>
       axios.get<Character[]>(`${URL}/character/[${favouritesIds}]`),
@@ -32,9 +37,9 @@ export function Favourites() {
       </button>
 
       {data === undefined && isLoading ? (
-        <p>Loading...</p>
+        <StatusBar status={"loading"} />
       ) : isError ? (
-        <p>Ошибка запроса</p>
+        <StatusBar status={"error"}>{error.message}</StatusBar>
       ) : (
         !data && <p>There is nothing in your favourites yet</p>
       )}

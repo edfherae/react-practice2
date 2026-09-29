@@ -1,18 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { API_URL as API } from "../../../shared/api";
-import type { Character } from "../../../entities/character";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { API_URL as API } from "../../../shared/api";
+import { StatusBar } from "../../../shared/ui/StatusBar/";
+import { buttonStyles } from "../../../shared/ui/Button";
+
 import { Img } from "../../../widgets/character";
 
+import type { Character } from "../../../entities/character";
+
 import styles from "./Character.module.scss";
-import { buttonStyles } from "../../../shared/ui/Button";
 
 export function Character() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["character", id],
     queryFn: () => axios.get<Character>(`${API}/character/${id}`),
     select(data) {
@@ -27,8 +31,8 @@ export function Character() {
       </button>
       {data && (
         <div className={styles["content"]}>
-          {isLoading && <p>Loading...</p>}
-          {isError && <p>Ошибка запроса</p>}
+          {isLoading && <StatusBar status={"loading"} />}
+          {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
           {data && (
             <>
               <section>

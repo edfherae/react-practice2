@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Characters } from "../../pages/characters";
+
 import Layout from "../layout/Layout";
+import { Characters } from "../../pages/characters";
 import { Character } from "../../pages/character";
 import { Favourites } from "../../pages/favourites/";
 

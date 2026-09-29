@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import type { Character } from "../../../entities/character";
-import iconBlankStar from "../../../shared/ui/iconBlankStar.png";
-import iconStar from "../../../shared/ui/iconStar.png";
-import styles from "./CharacterCard.module.scss";
-import { Img } from "./Img";
 import type React from "react";
-import { favouritesSlice } from "../../../features/toggle-favourite";
+
+import iconBlankStar from "../../../../shared/ui/iconBlankStar.png";
+import iconStar from "../../../../shared/ui/iconStar.png";
+
+import type { Character } from "../../../../entities/character";
+
+import { favouritesSlice } from "../../../../features/toggle-favourite";
+
+import styles from "./CharacterCard.module.scss";
+import { Img } from "../Img";
 
 export function CharacterCard({
   character,

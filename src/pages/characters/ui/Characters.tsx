@@ -5,8 +5,12 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { API_URL } from "../../../shared/api";
 import { buttonStyles } from "../../../shared/ui/Button";
+import { Pagination } from "../../../shared/ui/Pagination";
+import { StatusBar } from "../../../shared/ui/StatusBar/";
+
 import type { AllCharactersResponse } from "../../../entities/character";
-import { CharacterCard, Pagination } from "../../../widgets/character";
+
+import { CharacterCard } from "../../../widgets/character";
 
 import styles from "./Characters.module.scss";
 
@@ -27,7 +31,7 @@ export function Characters() {
     setSearch(name);
   }
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["characters", name, page],
     queryFn: () =>
       axios.get<AllCharactersResponse>(`${API_URL}/character/${query}`),
@@ -70,8 +74,8 @@ export function Characters() {
           setSearch(e.target.value);
         }}
       />
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Ошибка запроса</p>}
+      {isLoading && <StatusBar status={"loading"} />}
+      {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
       {data && (
         <>
           <section className={styles["content"]}>

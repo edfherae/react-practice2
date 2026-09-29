@@ -1,4 +1,4 @@
-import { buttonStyles } from "../../../shared/ui/Button";
+import { buttonStyles } from "./Button";
 
 export function Pagination({
   page,
