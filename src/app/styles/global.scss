@@ -1,0 +1,21 @@
+@use "../../shared/ui/variables" as v;
+
+// Сброс начальных стилей
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: v.$font;
+}
+
+// Чтобы примагнитить footer к нижней границе экрана
+#root {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  min-height: 100vh;
+  font-size: medium;
+
+  @media (min-width: v.$md) {
+    font-size: large;
+  }
+}
