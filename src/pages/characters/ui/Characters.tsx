@@ -8,7 +8,7 @@ import { buttonStyles } from "../../../shared/ui/Button";
 import { Pagination } from "../../../shared/ui/Pagination";
 import { StatusBar } from "../../../shared/ui/StatusBar";
 
-import type { AllCharactersResponse } from "../../../entities/character";
+import type { MultiplePagesResponse } from "../../../entities/character";
 
 import { CharacterCard } from "../../../widgets/character";
 
@@ -34,7 +34,7 @@ export function Characters() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["characters", name, page],
     queryFn: () =>
-      axios.get<AllCharactersResponse>(`${API_URL}/character/${query}`),
+      axios.get<MultiplePagesResponse>(`${API_URL}/character/${query}`),
   });
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 import type { Character } from "../model/types";
 
-export interface Info {
+interface Info {
   count: number;
   pages: number;
   next: string | null;
   prev: string | null;
 }
 
-export interface AllCharactersResponse {
+export interface MultiplePagesResponse {
   info: Info;
   results: Character[];
 }

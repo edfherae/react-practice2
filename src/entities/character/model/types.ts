@@ -1,8 +1,4 @@
-export type CharacterStatus = "Alive" | "Dead" | "unknown";
-export type CharacterGender = "Female" | "Male";
-export type CharacterSpecies = "Human";
-
-export interface Location {
+interface Location {
   name: string;
   url: string;
 }
@@ -10,10 +6,10 @@ export interface Location {
 export interface Character {
   id: number;
   name: string;
-  status: CharacterStatus;
-  species: CharacterSpecies;
+  status: string;
+  species: string;
   type: string;
-  gender: CharacterGender;
+  gender: string;
   origin: Location;
   location: Location;
   image: string;
