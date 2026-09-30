@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Character } from "../../../entities/character";
-import placeholder from "../../../shared/ui/characterPlaceholder.jpeg";
+import placeholder from "../../../shared/ui/assets/characterPlaceholder.jpeg";
 
 export function Img({
   character,

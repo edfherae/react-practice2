@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import type React from "react";
 
-import iconBlankStar from "../../../../shared/ui/iconBlankStar.png";
-import iconStar from "../../../../shared/ui/iconStar.png";
+import iconBlankStar from "../../../../shared/ui/assets/iconBlankStar.png";
+import iconStar from "../../../../shared/ui/assets/iconStar.png";
 
 import type { Character } from "../../../../entities/character";
 

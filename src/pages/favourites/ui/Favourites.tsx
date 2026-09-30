@@ -31,29 +31,29 @@ export function Favourites() {
   }
 
   return (
-    <section className={styles["content"]}>
-      <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
-        Back
-      </button>
-
-      {data === undefined && isLoading ? (
-        <StatusBar status={"loading"} />
-      ) : isError ? (
-        <StatusBar status={"error"}>{error.message}</StatusBar>
-      ) : (
-        !data && <p>There is nothing in your favourites yet</p>
-      )}
-      {data && (
-        <>
-          {data.map((character) => (
+    <>
+      <div className={styles["button-container"]}>
+        <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
+          Back
+        </button>
+      </div>
+      <section className={styles["content"]}>
+        {data === undefined && isLoading ? (
+          <StatusBar status={"loading"} />
+        ) : isError ? (
+          <StatusBar status={"error"}>{error.message}</StatusBar>
+        ) : (
+          !data && <p>There is nothing in your favourites yet</p>
+        )}
+        {data &&
+          data.map((character) => (
             <CharacterCard
               character={character}
               key={character.id}
               onClick={() => handleClick(character.id)}
             />
           ))}
-        </>
-      )}
-    </section>
+      </section>
+    </>
   );
 }

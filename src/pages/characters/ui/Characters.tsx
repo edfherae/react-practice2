@@ -6,7 +6,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { API_URL } from "../../../shared/api";
 import { buttonStyles } from "../../../shared/ui/Button";
 import { Pagination } from "../../../shared/ui/Pagination";
-import { StatusBar } from "../../../shared/ui/StatusBar/";
+import { StatusBar } from "../../../shared/ui/StatusBar";
 
 import type { AllCharactersResponse } from "../../../entities/character";
 
@@ -66,8 +66,11 @@ export function Characters() {
       <Link to={"/characters/favourites"} className={buttonStyles["button"]}>
         To favourites
       </Link>
-      <label htmlFor={inputId}>Filter by name</label>
+      <label className={styles["input-label"]} htmlFor={inputId}>
+        Filter by name
+      </label>
       <input
+        className={styles["input"]}
         id={inputId}
         value={search}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {

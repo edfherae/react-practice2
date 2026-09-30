@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <header className={styles["header"]}>
-        <img src={logo} alt="" />
+        <img src={logo} alt="Rick and Morty logo" />
       </header>
       <main className={styles["main"]}>
         <Outlet />

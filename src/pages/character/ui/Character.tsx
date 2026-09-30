@@ -26,25 +26,33 @@ export function Character() {
 
   return (
     <>
-      <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
-        Back
-      </button>
+      <div className={styles["button-container"]}>
+        <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
+          Back
+        </button>
+      </div>
+
       {data && (
-        <div className={styles["content"]}>
+        <div className={styles["content-container"]}>
           {isLoading && <StatusBar status={"loading"} />}
           {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
           {data && (
             <>
-              <section>
+              <section className={styles["card"]}>
                 <header className={styles["header"]}>{data.name}</header>
-                <Img character={data} />
-              </section>
-
-              <section>
-                <p>{data?.species}</p>
-                <p>{data?.gender}</p>
-                <p>{data?.status}</p>
-                <p>{data?.location.name}</p>
+                <Img className={styles["image"]} character={data} />
+                <section className={styles["description"]}>
+                  <p>Species</p>
+                  <p>{data?.species}</p>
+                  <p>Gender</p>
+                  <p>{data?.gender}</p>
+                  <p>Status</p>
+                  <p>{data?.status}</p>
+                  <p className={styles["first-col-last"]}>Location</p>
+                  <p className={styles["second-col-last"]}>
+                    {data?.location.name}
+                  </p>
+                </section>
               </section>
             </>
           )}

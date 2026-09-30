@@ -4,10 +4,11 @@
   border: 8px v.$primary-blue;
   border-style: double;
   border-radius: 15px;
-  width: 200px;
+  width: clamp(150px, 20vw, 225px);
   height: fit-content;
   overflow: hidden;
   margin: 0.25rem;
+  cursor: alias;
 
   &-header {
     background-color: v.$primary-blue;
@@ -15,14 +16,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.25rem 1rem;
+    flex-direction: column;
+
+    @media (min-width: v.$sm) {
+      flex-direction: row;
+    }
   }
 
   &-title {
     color: white;
     font-family: v.$font;
-    font-size: 20px;
+    overflow: hidden;
     text-align: center;
-    word-wrap: break-word;
   }
   &-star {
     width: 25px;

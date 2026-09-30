@@ -1,5 +1,11 @@
 @use "../../../shared/ui/variables" as v;
 
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .content {
   display: flex;
   flex-direction: row;
@@ -7,4 +13,6 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

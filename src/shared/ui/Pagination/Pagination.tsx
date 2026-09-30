@@ -1,4 +1,6 @@
-import { buttonStyles } from "./Button";
+import styles from "./Pagination.module.scss";
+
+import { buttonStyles } from "../Button";
 
 export function Pagination({
   page,
@@ -10,7 +12,7 @@ export function Pagination({
   totalPages: number;
 }) {
   return (
-    <section>
+    <section className={styles["container"]}>
       <button
         disabled={page <= 1}
         onClick={() => onClick(page - 1)}
