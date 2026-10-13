@@ -32,32 +32,30 @@ export function Character() {
         </button>
       </div>
 
-      {data && (
-        <div className={styles["content-container"]}>
-          {isLoading && <StatusBar status={"loading"} />}
-          {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
-          {data && (
-            <>
-              <section className={styles["card"]}>
-                <header className={styles["header"]}>{data.name}</header>
-                <Img className={styles["image"]} character={data} />
-                <section className={styles["description"]}>
-                  <p>Species</p>
-                  <p>{data?.species}</p>
-                  <p>Gender</p>
-                  <p>{data?.gender}</p>
-                  <p>Status</p>
-                  <p>{data?.status}</p>
-                  <p className={styles["first-col-last"]}>Location</p>
-                  <p className={styles["second-col-last"]}>
-                    {data?.location.name}
-                  </p>
-                </section>
+      <div className={styles["content-container"]}>
+        {isLoading && <StatusBar status={"loading"} />}
+        {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
+        {data && (
+          <>
+            <section className={styles["card"]}>
+              <header className={styles["header"]}>{data.name}</header>
+              <Img className={styles["image"]} character={data} />
+              <section className={styles["description"]}>
+                <p>Species</p>
+                <p>{data.species}</p>
+                <p>Gender</p>
+                <p>{data.gender}</p>
+                <p>Status</p>
+                <p>{data.status}</p>
+                <p className={styles["first-col-last"]}>Location</p>
+                <p className={styles["second-col-last"]}>
+                  {data.location.name}
+                </p>
               </section>
-            </>
-          )}
-        </div>
-      )}
+            </section>
+          </>
+        )}
+      </div>
     </>
   );
 }
