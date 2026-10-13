@@ -20,7 +20,6 @@ export function Characters() {
   const page = Number(searchParams.get("page")) || 1;
   const [search, setSearch] = useState(name);
   const [prevName, setPrevName] = useState(name);
-  const query = `?page=${page}${name ? `&name=${name}` : ""}`;
   const navigate = useNavigate();
   const inputId = useId();
   const DEBOUNCE_TIMEOUT = 300;
@@ -34,7 +33,12 @@ export function Characters() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["characters", name, page],
     queryFn: () =>
-      axios.get<MultiplePagesResponse>(`${API_URL}/character/${query}`),
+      axios.get<MultiplePagesResponse>(`${API_URL}/character`, {
+        params: {
+          page,
+          name: name || undefined,
+        },
+      }),
   });
 
   useEffect(() => {
