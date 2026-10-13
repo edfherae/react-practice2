@@ -1,0 +1,42 @@
+@use "../../shared/ui/variables" as v;
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: v.$primary-blue;
+  height: 120px;
+
+  @media (min-width: v.$sm) {
+    height: 150px;
+  }
+
+  @media (min-width: v.$md) {
+    height: 200px;
+  }
+
+  img {
+    height: 80%;
+    width: 80%;
+  }
+}
+
+.main {
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  font: {
+    size: large;
+    family: v.$font;
+    weight: bold;
+  }
+
+  background-color: v.$primary-blue;
+  color: white;
+}

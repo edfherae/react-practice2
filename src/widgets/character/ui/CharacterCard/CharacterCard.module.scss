@@ -1,0 +1,47 @@
+@use "../../../../shared/ui/variables" as v;
+
+.card {
+  border: 8px v.$primary-blue;
+  border-style: double;
+  border-radius: 15px;
+  width: clamp(150px, 20vw, 225px);
+  height: fit-content;
+  overflow: hidden;
+  margin: 0.25rem;
+  cursor: alias;
+
+  &-header {
+    background-color: v.$primary-blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 1rem;
+    flex-direction: column;
+
+    @media (min-width: v.$sm) {
+      flex-direction: row;
+    }
+  }
+
+  &-title {
+    color: white;
+    font-family: v.$font;
+    overflow: hidden;
+    text-align: center;
+  }
+  &-star {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &-image {
+    display: block;
+    width: 100%;
+  }
+}

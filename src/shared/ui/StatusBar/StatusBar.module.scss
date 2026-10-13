@@ -1,0 +1,18 @@
+@use "../variables" as v;
+
+.status-bar {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  width: fit-content;
+
+  &.loading {
+    background-color: v.$blue-300;
+  }
+  &.error {
+    background-color: v.$error-red;
+  }
+}
