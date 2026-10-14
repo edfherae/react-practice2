@@ -14,29 +14,12 @@ export function Img({
   );
 
   return (
-    <>
-      {status === "loading" && (
-        <img
-          className={className}
-          src={placeholder}
-          alt={`${character.name}'s portrait`}
-        ></img>
-      )}
-      {status === "error" && (
-        <img
-          className={className}
-          src={placeholder}
-          alt={`${character.name}'s portrait`}
-        ></img>
-      )}
-      <img
-        className={className}
-        src={character.image}
-        alt={`${character.name}'s portrait`}
-        onLoad={() => setStatus("loaded")}
-        onError={() => setStatus("error")}
-        style={{ display: status === "loaded" ? "block" : "none" }}
-      />
-    </>
+    <img
+      className={className}
+      src={status === "loaded" ? character.image : placeholder}
+      alt={`${character.name}'s portrait`}
+      onLoad={() => setStatus("loaded")}
+      onError={() => setStatus("error")}
+    />
   );
 }
