@@ -43,7 +43,8 @@ export function Favourites() {
         ) : isError ? (
           <StatusBar status={"error"}>{error.message}</StatusBar>
         ) : (
-          !data && <p>There is nothing in your favourites yet</p>
+          !data ||
+          (data.length === 0 && <p>There is nothing in your favourites yet</p>)
         )}
         {data &&
           data.map((character) => (
