@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { StatusBar } from "../../../shared/ui/StatusBar/";
 import { buttonStyles } from "../../../shared/ui/Button";
@@ -16,6 +16,7 @@ import styles from "./Favourites.module.scss";
 
 export function Favourites() {
   const navigate = useNavigate();
+  const location = useLocation();
   const favouritesIds = useSelector((state) => state.favourites.ids);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["favourite", favouritesIds],
@@ -27,14 +28,20 @@ export function Favourites() {
     enabled: favouritesIds.length > 0,
   });
 
-  function handleClick(id: number) {
+  const handleBack = () => {
+    console.log(location.key);
+    if (location.key === "default") navigate("/characters");
+    else navigate(-1);
+  };
+
+  function handleCardClick(id: number) {
     navigate(`/character/${id}`);
   }
 
   return (
     <>
       <div className={styles["button-container"]}>
-        <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
+        <button onClick={handleBack} className={buttonStyles["button"]}>
           Back
         </button>
       </div>
@@ -50,7 +57,7 @@ export function Favourites() {
             <CharacterCard
               character={character}
               key={character.id}
-              onClick={() => handleClick(character.id)}
+              onClick={() => handleCardClick(character.id)}
             />
           ))}
       </section>

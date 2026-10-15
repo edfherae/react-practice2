@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { API_URL as API } from "../../../shared/api";
 import { StatusBar } from "../../../shared/ui/StatusBar/";
@@ -16,6 +16,7 @@ import styles from "./Character.module.scss";
 export function Character() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["character", id],
@@ -25,10 +26,16 @@ export function Character() {
     },
   });
 
+  const handleBack = () => {
+    console.log(location.key);
+    if (location.key === "default") navigate("/characters");
+    else navigate(-1);
+  };
+
   return (
     <>
       <div className={styles["button-container"]}>
-        <button onClick={() => navigate(-1)} className={buttonStyles["button"]}>
+        <button onClick={handleBack} className={buttonStyles["button"]}>
           Back
         </button>
       </div>
