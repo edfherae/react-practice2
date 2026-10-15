@@ -7,6 +7,7 @@ import { API_URL } from "../../../shared/api";
 import { buttonStyles } from "../../../shared/ui/Button";
 import { Pagination } from "../../../shared/ui/Pagination";
 import { StatusBar } from "../../../shared/ui/StatusBar";
+import getErrorMessage from "../../../shared/lib/getErrorMessage";
 
 import type { MultiplePagesResponse } from "../../../entities/character";
 
@@ -82,7 +83,9 @@ export function Characters() {
         }}
       />
       {isLoading && <StatusBar status={"loading"} />}
-      {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
+      {isError && (
+        <StatusBar status={"error"}>{getErrorMessage(error)}</StatusBar>
+      )}
       {data && (
         <>
           <section className={styles["content"]}>

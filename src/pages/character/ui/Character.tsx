@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { API_URL as API } from "../../../shared/api";
 import { StatusBar } from "../../../shared/ui/StatusBar/";
 import { buttonStyles } from "../../../shared/ui/Button";
+import getErrorMessage from "../../../shared/lib/getErrorMessage";
 
 import { Img } from "../../../widgets/character";
 
@@ -34,7 +35,9 @@ export function Character() {
 
       <div className={styles["content-container"]}>
         {isLoading && <StatusBar status={"loading"} />}
-        {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
+        {isError && (
+          <StatusBar status={"error"}>{getErrorMessage(error)}</StatusBar>
+        )}
         {data && (
           <>
             <section className={styles["card"]}>

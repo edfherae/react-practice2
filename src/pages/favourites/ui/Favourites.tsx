@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { StatusBar } from "../../../shared/ui/StatusBar/";
 import { buttonStyles } from "../../../shared/ui/Button";
 import { API_URL as URL } from "../../../shared/api";
+import getErrorMessage from "../../../shared/lib/getErrorMessage";
 
 import type { Character } from "../../../entities/character";
 
@@ -38,14 +39,12 @@ export function Favourites() {
         </button>
       </div>
       <section className={styles["content"]}>
-        {data === undefined && isLoading ? (
-          <StatusBar status={"loading"} />
-        ) : isError ? (
-          <StatusBar status={"error"}>{error.message}</StatusBar>
-        ) : (
-          !data ||
-          (data.length === 0 && <p>There is nothing in your favourites yet</p>)
+        {isLoading && <StatusBar status={"loading"} />}
+        {isError && (
+          <StatusBar status={"error"}>{getErrorMessage(error)}</StatusBar>
         )}
+        {!data ||
+          (data.length === 0 && <p>There is nothing in your favourites yet</p>)}
         {data &&
           data.map((character) => (
             <CharacterCard
