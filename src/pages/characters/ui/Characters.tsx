@@ -92,7 +92,7 @@ export function Characters() {
             {data.data.results.map((c) => (
               <CharacterCard
                 character={c}
-                onClick={() => navigate(`/character/${c.id}`)}
+                onClick={() => navigate(`/characters/${c.id}`)}
                 key={c.id}
               />
             ))}

@@ -35,7 +35,7 @@ export function Favourites() {
   };
 
   function handleCardClick(id: number) {
-    navigate(`/character/${id}`);
+    navigate(`/characters/${id}`);
   }
 
   return (

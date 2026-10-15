@@ -12,7 +12,7 @@ export default function App() {
         <Route index element={<Navigate to={"/characters/"} />} />
         <Route path="/characters/" element={<Characters />} />
         <Route path="characters/favourites" element={<Favourites />} />
-        <Route path="character/:id" element={<Character />} />
+        <Route path="characters/:id" element={<Character />} />
       </Route>
     </Routes>
   );
