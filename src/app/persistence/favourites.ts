@@ -1,13 +1,13 @@
 import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 import { favouritesSlice } from "../../features/toggle-favourite";
 import type { AppState } from "../model/store";
-import toPositiveIds from "../../shared/lib/toPositiveIds";
+import toPositiveIntegerIds from "../../shared/lib/toPositiveIntegerIds";
 
 export function readFavourites(): number[] {
   try {
     const res = JSON.parse(localStorage.getItem(favouritesSlice.name) ?? "[]");
     if (!Array.isArray(res)) return [];
-    return toPositiveIds(res);
+    return toPositiveIntegerIds(res);
   } catch {
     return [];
   }
