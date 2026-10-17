@@ -7,6 +7,7 @@ import { API_URL } from "../../../shared/api";
 import { buttonStyles } from "../../../shared/ui/Button";
 import { Pagination } from "../../../shared/ui/Pagination";
 import { StatusBar } from "../../../shared/ui/StatusBar";
+import getErrorMessage from "../../../shared/lib/getErrorMessage";
 
 import type { MultiplePagesResponse } from "../../../entities/character";
 
@@ -20,7 +21,6 @@ export function Characters() {
   const page = Number(searchParams.get("page")) || 1;
   const [search, setSearch] = useState(name);
   const [prevName, setPrevName] = useState(name);
-  const query = `?page=${page}${name ? `&name=${name}` : ""}`;
   const navigate = useNavigate();
   const inputId = useId();
   const DEBOUNCE_TIMEOUT = 300;
@@ -34,7 +34,12 @@ export function Characters() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["characters", name, page],
     queryFn: () =>
-      axios.get<MultiplePagesResponse>(`${API_URL}/character/${query}`),
+      axios.get<MultiplePagesResponse>(`${API_URL}/character`, {
+        params: {
+          page,
+          name: name || undefined,
+        },
+      }),
   });
 
   useEffect(() => {
@@ -78,14 +83,16 @@ export function Characters() {
         }}
       />
       {isLoading && <StatusBar status={"loading"} />}
-      {isError && <StatusBar status={"error"}>{error.message}</StatusBar>}
+      {isError && (
+        <StatusBar status={"error"}>{getErrorMessage(error)}</StatusBar>
+      )}
       {data && (
         <>
           <section className={styles["content"]}>
             {data.data.results.map((c) => (
               <CharacterCard
                 character={c}
-                onClick={() => navigate(`/character/${c.id}`)}
+                onClick={() => navigate(`/characters/${c.id}`)}
                 key={c.id}
               />
             ))}
